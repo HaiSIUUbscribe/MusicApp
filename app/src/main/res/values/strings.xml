@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MusicApplication</string>
+    <string name="nav_songs">Songs</string>
+    <string name="nav_albums">Albums</string>
+    <string name="nav_profile">Profile</string>
+    <string name="music_player">Music Player</string>
+</resources>
