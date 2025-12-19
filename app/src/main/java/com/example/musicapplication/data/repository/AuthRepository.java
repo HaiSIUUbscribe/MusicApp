@@ -2,6 +2,8 @@ package com.example.musicapplication.data.repository;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.example.musicapplication.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -45,7 +47,7 @@ public class AuthRepository {
     }
     
     public interface OnUserDataListener {
-        void onSuccess(com.example.musicapplication.domain.model.User user);
+        void onSuccess(User user);
         void onError(Exception error);
     }
     
@@ -134,8 +136,8 @@ public class AuthRepository {
             .get()
             .addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.exists()) {
-                    com.example.musicapplication.domain.model.User user = 
-                        new com.example.musicapplication.domain.model.User();
+                    User user =
+                        new User();
                     user.id = documentSnapshot.getString("id");
                     user.email = documentSnapshot.getString("email");
                     user.displayName = documentSnapshot.getString("displayName");

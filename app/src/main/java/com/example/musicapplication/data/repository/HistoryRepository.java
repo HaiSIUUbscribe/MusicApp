@@ -3,7 +3,7 @@ package com.example.musicapplication.data.repository;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.musicapplication.domain.model.Song;
+import com.example.musicapplication.model.Song;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -13,7 +13,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

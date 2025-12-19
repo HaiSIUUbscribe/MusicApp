@@ -21,28 +21,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicApplication">
         <activity
-            android:name=".main.AboutActivity"
+            android:name=".ui.activity.other.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".main.PrivacyActivity"
+            android:name=".ui.activity.other.PrivacyActivity"
             android:exported="false" />
         <activity
-            android:name=".main.AddSongPlaylistActivity"
+            android:name=".ui.activity.playlist.AddSongPlaylistActivity"
             android:exported="false" />
         <activity
-            android:name=".main.PlaylistDetailActivity"
+            android:name=".ui.activity.playlist.PlaylistDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".main.GenreDetailActivity"
+            android:name=".ui.activity.genre.GenreDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".main.AllAlbumsActivity"
+            android:name=".ui.activity.album.AllAlbumsActivity"
             android:exported="false" />
         <activity
-            android:name=".main.AlbumDetailActivity"
+            android:name=".ui.activity.album.AlbumDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".main.MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,17 +51,17 @@
             </intent-filter>
         </activity> <!-- Activities for music features -->
         <activity
-            android:name=".main.PlayerActivity"
+            android:name=".ui.activity.player.PlayerActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
-            android:name=".upload.UploadSongActivity"
+            android:name=".ui.activity.upload.UploadSongActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.LoginActivity"
+            android:name=".ui.activity.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.RegisterActivity"
+            android:name=".ui.activity.auth.RegisterActivity"
             android:exported="false" />
     </application>
 

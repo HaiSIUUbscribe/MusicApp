@@ -3,7 +3,7 @@ package com.example.musicapplication.data.repository;
 import android.content.Context;
 import android.util.Log;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.example.musicapplication.domain.model.User;
+import com.example.musicapplication.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

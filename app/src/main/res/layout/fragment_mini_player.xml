@@ -10,7 +10,7 @@
     app:cardBackgroundColor="#222222"
     app:cardCornerRadius="12dp"
     app:cardElevation="8dp"
-    tools:context=".fragments.MiniPlayerFragment">
+    tools:context=".ui.fragments.MiniPlayerFragment">
 
     <LinearLayout
         android:id="@+id/layout_mini_player"

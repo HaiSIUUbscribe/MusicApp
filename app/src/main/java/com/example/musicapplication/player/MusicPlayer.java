@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.musicapplication.domain.model.Song;
+import com.example.musicapplication.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;

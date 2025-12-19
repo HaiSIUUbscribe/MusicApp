@@ -54,23 +54,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:2.7.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.7.0"
     
-    // Room Database
-    implementation libs.room.runtime
-    annotationProcessor libs.room.compiler
-    
     // ExoPlayer for streaming
     implementation libs.media3.exoplayer
     implementation libs.media3.ui
     implementation libs.media3.session
-    
-    // Retrofit (for future API calls)
-    implementation libs.retrofit
-    implementation libs.retrofit.gson
-    implementation libs.gson
-    
-    // Navigation Component (Java version)
-    implementation "androidx.navigation:navigation-fragment:2.7.6"
-    implementation "androidx.navigation:navigation-ui:2.7.6"
     
     // Glide for images
     implementation libs.glide
