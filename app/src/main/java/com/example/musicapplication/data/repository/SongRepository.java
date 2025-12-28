@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.musicapplication.model.Song;
+import com.example.musicapplication.utils.NetworkUtils;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -41,6 +42,10 @@ public class SongRepository {
      * Note: Method này được giữ lại vì nhiều nơi sử dụng
      */
     public void getSongsByIds(List<String> songIds, OnResultListener<List<Song>> listener) {
+        if (!NetworkUtils.isNetworkAvailable(context)) {
+            listener.onError(new Exception("Không có kết nối mạng"));
+            return;
+        }
         if (songIds == null || songIds.isEmpty()) {
             listener.onSuccess(new ArrayList<>());
             return;
@@ -66,6 +71,10 @@ public class SongRepository {
      * Lấy bài hát trending (nhiều lượt nghe nhất)
      */
     public void getTrendingSongs(int limit, OnResultListener<List<Song>> listener) {
+        if (!NetworkUtils.isNetworkAvailable(context)) {
+            listener.onError(new Exception("Không có kết nối mạng"));
+            return;
+        }
         firestore.collection(SONGS_COLLECTION)
                 .orderBy("playCount", Query.Direction.DESCENDING)
                 .limit(limit)
@@ -78,6 +87,10 @@ public class SongRepository {
      * Lấy bài hát mới thêm gần đây
      */
     public void getRecentlyAddedSongs(int limit, OnResultListener<List<Song>> listener) {
+        if (!NetworkUtils.isNetworkAvailable(context)) {
+            listener.onError(new Exception("Không có kết nối mạng"));
+            return;
+        }
         firestore.collection(SONGS_COLLECTION)
                 .orderBy("uploadDate", Query.Direction.DESCENDING)
                 .limit(limit)
@@ -90,6 +103,10 @@ public class SongRepository {
      * Lấy tất cả bài hát
      */
     public void getAllSongs(OnResultListener<List<Song>> listener) {
+        if (!NetworkUtils.isNetworkAvailable(context)) {
+            listener.onError(new Exception("Không có kết nối mạng"));
+            return;
+        }
         firestore.collection(SONGS_COLLECTION)
                 .orderBy("uploadDate", Query.Direction.DESCENDING)
                 .get()
@@ -101,6 +118,10 @@ public class SongRepository {
      * Lấy bài hát theo ID
      */
     public void getSongById(String songId, OnResultListener<Song> listener) {
+        if (!NetworkUtils.isNetworkAvailable(context)) {
+            listener.onError(new Exception("Không có kết nối mạng"));
+            return;
+        }
         firestore.collection(SONGS_COLLECTION).document(songId).get()
                 .addOnSuccessListener(doc -> {
                     if (doc.exists()) listener.onSuccess(documentToSong(doc.getId(), doc.getData()));
@@ -115,6 +136,26 @@ public class SongRepository {
     public void incrementPlayCount(String songId) {
         firestore.collection(SONGS_COLLECTION).document(songId)
                 .update("playCount", FieldValue.increment(1));
+    }
+
+    /**
+     * Lấy danh sách bài hát theo tên nghệ sĩ
+     */
+    public void getSongsByArtist(String artistName, OnResultListener<List<Song>> listener) {
+        if (!NetworkUtils.isNetworkAvailable(context)) {
+            listener.onError(new Exception("Không có kết nối mạng"));
+            return;
+        }
+        if (artistName == null || artistName.trim().isEmpty()) {
+            listener.onSuccess(new ArrayList<>());
+            return;
+        }
+
+        firestore.collection(SONGS_COLLECTION)
+                .whereEqualTo("artist", artistName)
+                .get()
+                .addOnSuccessListener(s -> parseSongs(s, listener))
+                .addOnFailureListener(listener::onError);
     }
 
     // --- HELPERS ---

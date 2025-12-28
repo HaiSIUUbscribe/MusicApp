@@ -1,7 +1,7 @@
 package com.example.musicapplication.data.repository;
 
 import android.content.Context;
-import android.util.Log;
+import com.example.musicapplication.utils.Logger;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.musicapplication.model.User;
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class UserRepository {
-    private static final String TAG = "UserRepository";
     private FirebaseFirestore firestore;
     private Context context;
     private static final String USERS_COLLECTION = "users";
@@ -38,7 +37,7 @@ public class UserRepository {
                 }
             })
             .addOnFailureListener(e -> {
-                Log.e(TAG, "Error getting user", e);
+                Logger.logRepositoryError("UserRepository", "getUser", e);
                 listener.onError(e);
             });
     }
@@ -54,11 +53,11 @@ public class UserRepository {
         firestore.collection(USERS_COLLECTION).document(user.id)
             .update(updates)
             .addOnSuccessListener(aVoid -> {
-                Log.d(TAG, "User updated successfully");
+                Logger.d("UserRepository: User updated successfully");
                 listener.onSuccess(null);
             })
             .addOnFailureListener(e -> {
-                Log.e(TAG, "Error updating user", e);
+                Logger.logRepositoryError("UserRepository", "updateUser", e);
                 listener.onError(e);
             });
     }
@@ -131,7 +130,7 @@ public class UserRepository {
                 }
             })
             .addOnFailureListener(e -> {
-                Log.e(TAG, "Error getting favorites", e);
+                Logger.logRepositoryError("UserRepository", "getFavorites", e);
                 listener.onError(e);
             });
     }
@@ -165,7 +164,7 @@ public class UserRepository {
             
             return user;
         } catch (Exception e) {
-            Log.e(TAG, "Error converting document to user", e);
+            Logger.logRepositoryError("UserRepository", "documentToUser", e);
             return null;
         }
     }

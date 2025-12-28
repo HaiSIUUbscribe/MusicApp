@@ -82,7 +82,7 @@
                     android:id="@+id/tv_see_all_albums"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See all >"
+                    android:text="Xem tất cả>"
                     android:textColor="@color/accent_primary"
                     android:textSize="14sp"
                     android:padding="8dp"
@@ -98,6 +98,36 @@
                 android:nestedScrollingEnabled="false"
                 android:paddingHorizontal="12dp"
                 android:clipToPadding="false"/>
+
+            <!-- ARTISTS (Nghệ sĩ) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Popular Artists"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Horizontal list for Artists (circular cards) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_artists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingHorizontal="12dp"/>
 
             <!-- NEW SONGS (Bài hát mới) -->
             <LinearLayout

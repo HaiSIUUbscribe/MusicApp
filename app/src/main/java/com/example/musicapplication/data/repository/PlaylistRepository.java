@@ -1,9 +1,7 @@
 package com.example.musicapplication.data.repository;
-
 import android.content.Context;
-import android.util.Log;
-
 import com.example.musicapplication.model.Playlist;
+import com.example.musicapplication.utils.Logger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
@@ -20,7 +18,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class PlaylistRepository {
-    private static final String TAG = "PlaylistRepository";
     private static final String PLAYLISTS_COLLECTION = "playlists";
 
     private FirebaseFirestore firestore;
@@ -66,7 +63,7 @@ public class PlaylistRepository {
                 // .orderBy("createdAt", Query.Direction.DESCENDING) <--- ĐÃ BỎ DÒNG NÀY ĐỂ TRÁNH LỖI
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
-                        Log.e(TAG, "Lỗi lấy playlist: ", e); // Log lỗi để kiểm tra
+                        Logger.e("Lỗi lấy playlist: ", e); // Log lỗi để kiểm tra
                         listener.onError(e);
                         return;
                     }
@@ -79,7 +76,7 @@ public class PlaylistRepository {
 
                         // Sắp xếp danh sách tại đây (Mới nhất lên đầu)
                         Collections.sort(playlists, (p1, p2) -> Long.compare(p2.getCreatedAt(), p1.getCreatedAt()));
-                        Log.d(TAG, "Fetched playlists: " + playlists.size());
+                        Logger.d("Fetched playlists: " + playlists.size());
                         listener.onSuccess(playlists);
                     }
                 });
@@ -187,7 +184,7 @@ public class PlaylistRepository {
             p.setUpdatedAt(up != null ? ((Number) up).longValue() : 0);
             return p;
         } catch (Exception e) {
-            Log.e(TAG, "Error parsing playlist", e);
+            Logger.e("Error parsing playlist", e);
             return null;
         }
     }

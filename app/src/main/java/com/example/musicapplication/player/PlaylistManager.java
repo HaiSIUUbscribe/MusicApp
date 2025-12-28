@@ -24,25 +24,14 @@ public class PlaylistManager {
     public void setPlaylist(List<Song> songs) {
         this.playlist = new ArrayList<>(songs);
         this.currentPosition = 0;
-        android.util.Log.d("PlaylistManager", "Playlist set: " + songs.size() + " songs");
-        // Log all songs
-        for (int i = 0; i < songs.size(); i++) {
-            android.util.Log.d("PlaylistManager", "  [" + i + "] " + songs.get(i).title);
-        }
     }
 
     public void setPlaylist(List<Song> songs, int position) {
         this.playlist = new ArrayList<>(songs);
         this.currentPosition = position;
-        android.util.Log.d("PlaylistManager", "Playlist set: " + songs.size() + " songs, starting at position: " + position);
-        // Log all songs
-        for (int i = 0; i < songs.size(); i++) {
-            android.util.Log.d("PlaylistManager", "  [" + i + "] " + songs.get(i).title);
-        }
     }
 
     public List<Song> getPlaylist() {
-        android.util.Log.d("PlaylistManager", "Getting playlist, size: " + playlist.size());
         return playlist;
     }
 

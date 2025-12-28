@@ -4,11 +4,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.example.musicapplication.constants.AppConstants;
-
-/**
- * Utility class for input validation
- * Provides methods to validate user inputs
- */
 public class ValidationUtils {
     
     /**

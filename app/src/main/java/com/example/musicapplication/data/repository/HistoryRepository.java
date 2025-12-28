@@ -1,9 +1,8 @@
 package com.example.musicapplication.data.repository;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.example.musicapplication.model.Song;
+import com.example.musicapplication.utils.Logger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 public class HistoryRepository {
-    private static final String TAG = "HistoryRepository";
     private static final String USERS_COLLECTION = "users";
     private static final String SONGS_COLLECTION = "songs";
     private static final String HISTORY_SUB_COLLECTION = "history";
@@ -48,11 +46,11 @@ public class HistoryRepository {
                 .collection(HISTORY_SUB_COLLECTION).document(songId)
                 .set(historyData)
                 .addOnSuccessListener(aVoid -> {
-                    Log.d(TAG, "Updated history for song: " + songId);
+                    Logger.d( "Updated history for song: " + songId);
                     if (listener != null) listener.onSuccess(null);
                 })
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error adding history", e);
+                    Logger.e( "Error adding history", e);
                     if (listener != null) listener.onError(e);
                 });
     }

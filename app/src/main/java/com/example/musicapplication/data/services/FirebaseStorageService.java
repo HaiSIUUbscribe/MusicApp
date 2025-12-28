@@ -1,14 +1,12 @@
 package com.example.musicapplication.data.services;
 
 import android.content.Context;
-import android.util.Log;
-
+import com.example.musicapplication.utils.Logger;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class FirebaseStorageService implements StorageService {
-    private static final String TAG = "FirebaseStorage";
     private FirebaseStorage storage;
     private Context context;
     
@@ -24,14 +22,14 @@ public class FirebaseStorageService implements StorageService {
         
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             audioRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                Log.d(TAG, "Audio uploaded successfully: " + uri.toString());
+                Logger.d("Audio uploaded successfully: " + uri.toString());
                 listener.onSuccess(uri.toString());
             }).addOnFailureListener(e -> {
-                Log.e(TAG, "Error getting audio URL", e);
+                Logger.e("Error getting audio URL", e);
                 listener.onError(e);
             });
         }).addOnFailureListener(e -> {
-            Log.e(TAG, "Error uploading audio", e);
+            Logger.e("Error uploading audio", e);
             listener.onError(e);
         });
     }
@@ -43,14 +41,14 @@ public class FirebaseStorageService implements StorageService {
         
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                Log.d(TAG, "Image uploaded successfully: " + uri.toString());
+                Logger.d("Image uploaded successfully: " + uri.toString());
                 listener.onSuccess(uri.toString());
             }).addOnFailureListener(e -> {
-                Log.e(TAG, "Error getting image URL", e);
+                Logger.e( "Error getting image URL", e);
                 listener.onError(e);
             });
         }).addOnFailureListener(e -> {
-            Log.e(TAG, "Error uploading image", e);
+            Logger.e("Error uploading image", e);
             listener.onError(e);
         });
     }
@@ -60,11 +58,11 @@ public class FirebaseStorageService implements StorageService {
         StorageReference fileRef = storage.getReference().child(path);
         fileRef.delete()
             .addOnSuccessListener(aVoid -> {
-                Log.d(TAG, "File deleted successfully: " + path);
+                Logger.d("File deleted successfully: " + path);
                 listener.onSuccess();
             })
             .addOnFailureListener(e -> {
-                Log.e(TAG, "Error deleting file", e);
+                Logger.e("Error deleting file", e);
                 listener.onError(e);
             });
     }

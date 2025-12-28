@@ -26,10 +26,11 @@ import com.example.musicapplication.model.Song;
 import com.example.musicapplication.ui.activity.genre.GenreDetailActivity; // Import Activity mới
 import com.example.musicapplication.ui.activity.player.PlayerActivity;
 import com.example.musicapplication.model.Genre;
+import com.example.musicapplication.utils.ToastUtils;
 import com.example.musicapplication.player.MusicPlayer;
 import com.example.musicapplication.player.PlaylistManager;
 import com.google.android.material.textfield.TextInputEditText;
-import com.example.musicapplication.utils.ToastUtils;
+
 import com.example.musicapplication.utils.Logger;
 
 import java.util.ArrayList;
@@ -187,7 +188,7 @@ public class SearchFragment extends Fragment {
             startActivity(intent);
         } catch (Exception e) {
             Logger.e("Error handling song click: " + e.getMessage());
-            ToastUtils.showError(getContext(), "Error playing song");
+            ToastUtils.showError(getContext(), "Lỗi khi xử lý click bài hát");
         }
     }
 }

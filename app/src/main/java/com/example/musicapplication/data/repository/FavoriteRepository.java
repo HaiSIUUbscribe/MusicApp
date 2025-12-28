@@ -112,6 +112,52 @@ public class FavoriteRepository {
     }
 
     /**
+     * Thêm bài hát vào danh sách yêu thích
+     */
+    public void addToFavorites(String songId, OnResultListener<Void> listener) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            if (listener != null) listener.onError(new Exception("User not logged in"));
+            return;
+        }
+
+        firestore.collection(USERS_COLLECTION).document(user.getUid())
+                .update("favoriteSongs", FieldValue.arrayUnion(songId))
+                .addOnSuccessListener(v -> {
+                    // Cập nhật likeCount trong bài hát
+                    firestore.collection(SONGS_COLLECTION).document(songId)
+                            .update("likeCount", FieldValue.increment(1));
+                    if (listener != null) listener.onSuccess(null);
+                })
+                .addOnFailureListener(e -> {
+                    if (listener != null) listener.onError(e);
+                });
+    }
+
+    /**
+     * Xóa bài hát khỏi danh sách yêu thích
+     */
+    public void removeFromFavorites(String songId, OnResultListener<Void> listener) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            if (listener != null) listener.onError(new Exception("User not logged in"));
+            return;
+        }
+
+        firestore.collection(USERS_COLLECTION).document(user.getUid())
+                .update("favoriteSongs", FieldValue.arrayRemove(songId))
+                .addOnSuccessListener(v -> {
+                    // Cập nhật likeCount trong bài hát
+                    firestore.collection(SONGS_COLLECTION).document(songId)
+                            .update("likeCount", FieldValue.increment(-1));
+                    if (listener != null) listener.onSuccess(null);
+                })
+                .addOnFailureListener(e -> {
+                    if (listener != null) listener.onError(e);
+                });
+    }
+
+    /**
      * Lấy danh sách bài hát theo IDs
      */
     public void getSongsByIds(List<String> songIds, OnResultListener<List<Song>> listener) {

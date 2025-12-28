@@ -1,9 +1,8 @@
 package com.example.musicapplication.data.repository;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.example.musicapplication.model.Song;
+import com.example.musicapplication.utils.Logger;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -18,7 +17,6 @@ import java.util.UUID;
  * Repository chuyên xử lý upload bài hát và lưu trữ file
  */
 public class SongUploadRepository {
-    private static final String TAG = "SongUploadRepository";
     private static final String SONGS_COLLECTION = "songs";
 
     private FirebaseFirestore firestore;
@@ -72,11 +70,11 @@ public class SongUploadRepository {
         Map<String, Object> songData = songToMap(song);
         firestore.collection(SONGS_COLLECTION).document(song.id).set(songData)
                 .addOnSuccessListener(aVoid -> {
-                    Log.d(TAG, "Song uploaded successfully: " + song.id);
+                    Logger.d("SongUploadRepository: Song uploaded successfully: " + song.id);
                     listener.onSuccess(song.id);
                 })
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error saving song to database", e);
+                    Logger.logRepositoryError("SongUploadRepository", "saveSongToDatabase", e);
                     listener.onError(e);
                 });
     }
@@ -134,4 +132,5 @@ public class SongUploadRepository {
                 .addOnFailureListener(listener::onError);
     }
 }
+
 

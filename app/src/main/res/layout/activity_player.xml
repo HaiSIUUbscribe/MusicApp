@@ -159,24 +159,27 @@
             android:layout_marginTop="8dp"
             android:paddingHorizontal="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next:"
-                android:textColor="@color/text_tertiary"
-                android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/imgvolmnedown"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_volume_down"
+                app:tint="@android:color/white"/>
 
-            <TextView
-                android:id="@+id/txt_next_song"
+            <SeekBar
+                android:id="@+id/seekBarVolume"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Next Song"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+
+            <ImageView
+                android:id="@+id/imgvolmneup"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_volume_up"
+                app:tint="@android:color/white"/>
 
             <ImageButton
                 android:id="@+id/btn_like"

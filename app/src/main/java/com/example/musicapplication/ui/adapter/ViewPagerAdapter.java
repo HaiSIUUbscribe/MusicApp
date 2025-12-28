@@ -6,9 +6,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.musicapplication.ui.fragments.SearchFragment;
-import com.example.musicapplication.ui.fragments.LibraryFragment;
-import com.example.musicapplication.ui.fragments.ProfileFragment;
-import com.example.musicapplication.ui.fragments.HomeFragment;
+import com.example.musicapplication.ui.fragments.library.LibraryFragment;
+import com.example.musicapplication.ui.fragments.profile.ProfileFragment;
+import com.example.musicapplication.ui.fragments.home.HomeFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 

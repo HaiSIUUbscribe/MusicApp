@@ -5,17 +5,15 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.musicapplication.model.Song;
+import com.example.musicapplication.utils.Logger;
+import com.example.musicapplication.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class MusicPlayer {
-    private static final String TAG = "MusicPlayer";
     private static MusicPlayer instance;
     private final MediaPlayer mediaPlayer;
     private String currentUri;
@@ -67,7 +65,7 @@ public class MusicPlayer {
     public void play(String uri) {
         try {
             if (uri == null || uri.isEmpty()) {
-                Log.e(TAG, "URI is null/empty");
+                Logger.e("URI is null/empty");
                 return;
             }
 
@@ -100,12 +98,12 @@ public class MusicPlayer {
                 isPreparing = false;
                 isPrepared = true;
                 mp.start();
-                Toast.makeText(ctx, "🎵 Đang phát: " + getSongTitle(uri), Toast.LENGTH_SHORT).show();
+                ToastUtils.showInfo(ctx, "Đang phát: " + getSongTitle(uri));
             });
 
             mediaPlayer.setOnErrorListener((mp, what, extra) -> {
                 isPreparing = false;
-                Log.e(TAG, "MediaPlayer Error: " + what);
+                Logger.e( "MediaPlayer Error: " + what);
                 return true;
             });
 
@@ -121,8 +119,8 @@ public class MusicPlayer {
 
         } catch (Exception e) {
             isPreparing = false;
-            Log.e(TAG, "Exception: " + e.getMessage());
-            Toast.makeText(ctx, "Lỗi phát nhạc", Toast.LENGTH_SHORT).show();
+            Logger.e("Exception: " + e.getMessage());
+            ToastUtils.showError(ctx, "Lỗi phát " + getSongTitle(uri) );
         }
     }
 

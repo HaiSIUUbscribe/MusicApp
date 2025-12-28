@@ -3,8 +3,6 @@ package com.example.musicapplication.ui.activity.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,14 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.musicapplication.R;
 import com.example.musicapplication.data.repository.AuthRepository;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class RegisterActivity extends AppCompatActivity {
     
-    private EditText etEmail;
-    private EditText etPassword;
-    private EditText etConfirmPassword;
-    private EditText etDisplayName;
-    private Button btnRegister;
+    private TextInputEditText etEmail;
+    private TextInputEditText etPassword;
+    private TextInputEditText etConfirmPassword;
+    private TextInputEditText etDisplayName;
+    private MaterialButton btnRegister;
     private TextView tvLogin;
     private ProgressBar progressBar;
     private AuthRepository authRepository;
@@ -130,8 +130,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void navigateToMain() {
+        // Logout user after registration so they can login manually
+        authRepository.logout();
+        
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("registered", true);
         startActivity(intent);
         finish();
     }

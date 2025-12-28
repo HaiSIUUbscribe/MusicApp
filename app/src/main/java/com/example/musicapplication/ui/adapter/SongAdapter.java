@@ -63,7 +63,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             loadAlbumArtFromLocal(holder.image, song.uri);
         } else {
             // Default icon
-            ImageLoader.load(context, R.drawable.ic_music, holder.image);
+            holder.image.setImageResource(R.drawable.ic_music);
         }
 
         holder.itemView.setOnClickListener(view -> {
@@ -99,7 +99,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     if (finalAlbumArt != null) {
                         imageView.setImageBitmap(finalAlbumArt);
                     } else {
-                        ImageLoader.load(context, R.drawable.ic_music, imageView);
+                        imageView.setImageResource(R.drawable.ic_music);
                     }
                 });
             }

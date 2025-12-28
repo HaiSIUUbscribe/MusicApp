@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileRepository {
-    private static final String TAG = "ProfileRepository";
     private static final String USERS_COLLECTION = "users";
     private static final String PROFILE_IMAGES_PATH = "profile_images";
 

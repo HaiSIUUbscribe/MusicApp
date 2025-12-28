@@ -1,9 +1,7 @@
 package com.example.musicapplication.data.repository;
-
 import android.content.Context;
-import android.util.Log;
-
 import com.example.musicapplication.model.User;
+import com.example.musicapplication.utils.Logger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -11,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AuthRepository {
-    private static final String TAG = "AuthRepository";
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
     private Context context;
@@ -51,6 +48,11 @@ public class AuthRepository {
         void onError(Exception error);
     }
     
+    public interface OnResetPasswordListener {
+        void onSuccess();
+        void onError(Exception error);
+    }
+    
     // Đăng ký tài khoản mới
     public void register(String email, String password, String displayName,
                         OnAuthResultListener listener) {
@@ -65,7 +67,7 @@ public class AuthRepository {
                         listener.onError(new Exception("User creation failed"));
                     }
                 } else {
-                    Log.e(TAG, "Registration failed", task.getException());
+                    Logger.e("Registration failed", task.getException());
                     listener.onError(task.getException() != null ? 
                         task.getException() : new Exception("Registration failed"));
                 }
@@ -87,11 +89,11 @@ public class AuthRepository {
         firestore.collection("users").document(user.getUid())
             .set(userData)
             .addOnSuccessListener(aVoid -> {
-                Log.d(TAG, "User document created successfully");
+                Logger.d("User document created successfully");
                 listener.onSuccess(new FirebaseUserWrapper(user));
             })
             .addOnFailureListener(e -> {
-                Log.e(TAG, "Error creating user document", e);
+                Logger.e("Error creating user document", e);
                 // Still return success for auth, document can be created later
                 listener.onSuccess(new FirebaseUserWrapper(user));
             });
@@ -103,10 +105,10 @@ public class AuthRepository {
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
-                    Log.d(TAG, "Login successful: " + (user != null ? user.getUid() : "null"));
+                    Logger.d("Login successful: " + (user != null ? user.getUid() : "null"));
                     listener.onSuccess(new FirebaseUserWrapper(user));
                 } else {
-                    Log.e(TAG, "Login failed", task.getException());
+                    Logger.e("Login failed", task.getException());
                     listener.onError(task.getException() != null ? 
                         task.getException() : new Exception("Login failed"));
                 }
@@ -116,7 +118,7 @@ public class AuthRepository {
     // Đăng xuất
     public void logout() {
         firebaseAuth.signOut();
-        Log.d(TAG, "User logged out");
+        Logger.d("User logged out");
     }
     
     // Lấy user hiện tại
@@ -147,8 +149,23 @@ public class AuthRepository {
                 }
             })
             .addOnFailureListener(e -> {
-                Log.e(TAG, "Error getting user data", e);
+                Logger.e("Error getting user data", e);
                 listener.onError(e);
+            });
+    }
+    
+    // Khôi phục mật khẩu
+    public void resetPassword(String email, OnResetPasswordListener listener) {
+        firebaseAuth.sendPasswordResetEmail(email)
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Logger.d("Password reset email sent to: " + email);
+                    listener.onSuccess();
+                } else {
+                    Logger.e("Password reset failed", task.getException());
+                    listener.onError(task.getException() != null ? 
+                        task.getException() : new Exception("Password reset failed"));
+                }
             });
     }
 }

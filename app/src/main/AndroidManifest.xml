@@ -42,14 +42,13 @@
             android:name=".ui.activity.album.AlbumDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activity.ArtistDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MusicApplication" />
+        <activity
             android:name=".ui.activity.main.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- Activities for music features -->
+            android:exported="false" />
+        <!-- Activities for music features -->
         <activity
             android:name=".ui.activity.player.PlayerActivity"
             android:exported="false"
@@ -59,7 +58,13 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.auth.LoginActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activity.auth.RegisterActivity"
             android:exported="false" />
